@@ -1,69 +1,96 @@
-# Welcome to your Lovable project
+# Portfolio Website with MongoDB Integration
 
-## Project info
+This project is a modern portfolio website built with React, TypeScript, and MongoDB integration. It features a responsive design, admin panel for content management, and beautiful animations.
 
-**URL**: https://lovable.dev/projects/40b2491b-d633-44e8-83e1-05f6f99fc758
+## Prerequisites
 
-## How can I edit this code?
+Before you begin, ensure you have the following installed:
+- Node.js (v16 or higher)
+- npm or yarn
+- MongoDB Atlas account (for database)
 
-There are several ways of editing your application.
+## Environment Variables
 
-**Use Lovable**
+Create a `.env` file in the root directory with the following variables:
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/40b2491b-d633-44e8-83e1-05f6f99fc758) and start prompting.
-
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+```env
+VITE_MONGODB_URI=your_mongodb_connection_string
+VITE_MONGODB_DB=your_database_name
 ```
 
-**Edit a file directly in GitHub**
+## Installation
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+1. Clone the repository:
+```bash
+git clone <repository-url>
+cd <project-directory>
+```
 
-**Use GitHub Codespaces**
+2. Install dependencies:
+```bash
+npm install
+# or
+yarn install
+```
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+3. Start the development server:
+```bash
+npm run dev
+# or
+yarn dev
+```
 
-## What technologies are used for this project?
+## Project Structure
 
-This project is built with .
+```
+src/
+├── components/        # React components
+├── lib/              # MongoDB configuration and utilities
+│   ├── mongodb.ts    # MongoDB client setup
+│   └── db-utils.ts   # Database CRUD operations
+├── pages/            # Application pages
+└── ...
+```
 
-- Vite
-- TypeScript
+## MongoDB Collections
+
+The project uses the following collections:
+- `skills`: Store skills and proficiency levels
+- `projects`: Store portfolio projects
+- `certificates`: Store certifications
+- `experience`: Store work experience
+
+## Features
+
+- Responsive design with Tailwind CSS
+- MongoDB integration for content management
+- Admin panel for CRUD operations
+- Smooth animations with Framer Motion
+- TypeScript for type safety
+
+## Available Scripts
+
+- `npm run dev`: Start development server
+- `npm run build`: Build for production
+- `npm run preview`: Preview production build locally
+
+## Tech Stack
+
 - React
-- shadcn-ui
+- TypeScript
 - Tailwind CSS
+- MongoDB
+- Framer Motion
+- shadcn/ui
 
-## How can I deploy this project?
+## Contributing
 
-Simply open [Lovable](https://lovable.dev/projects/40b2491b-d633-44e8-83e1-05f6f99fc758) and click on Share -> Publish.
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
-## I want to use a custom domain - is that possible?
+## License
 
-We don't support custom domains (yet). If you want to deploy your project under your own domain then we recommend using Netlify. Visit our docs for more details: [Custom domains](https://docs.lovable.dev/tips-tricks/custom-domain/)
+This project is licensed under the MIT License - see the LICENSE file for details.

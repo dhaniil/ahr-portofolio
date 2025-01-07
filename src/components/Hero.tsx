@@ -12,7 +12,7 @@ export const Hero = () => {
           className="space-y-6"
         >
           <h1 className="text-4xl md:text-6xl font-bold text-foreground tracking-tight">
-            Sajidi Khlas
+            Ahmad Hanaffi R.
           </h1>
           <p className="text-xl md:text-2xl text-muted max-w-2xl mx-auto">
             Web Developer crafting beautiful digital experiences with modern technologies
