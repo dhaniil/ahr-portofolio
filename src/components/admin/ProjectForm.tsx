@@ -6,6 +6,22 @@ import { Textarea } from "@/components/ui/textarea";
 import { Tag, X } from "lucide-react";
 import type { Project } from "@/lib/mongodb";
 
+const PREDEFINED_TAGS = [
+  "Frontend",
+  "Backend",
+  "SaaS",
+  "React",
+  "Node.js",
+  "TypeScript",
+  "JavaScript",
+  "MongoDB",
+  "Express",
+  "Next.js",
+  "Tailwind CSS",
+  "API",
+  "Full Stack",
+];
+
 interface ProjectFormProps {
   project?: Project;
   onSubmit: (data: Omit<Project, '_id'>) => void;
@@ -20,9 +36,9 @@ export const ProjectForm = ({ project, onSubmit }: ProjectFormProps) => {
   const [tags, setTags] = useState<string[]>(project?.tags || []);
   const [newTag, setNewTag] = useState("");
 
-  const handleAddTag = () => {
-    if (newTag && !tags.includes(newTag)) {
-      setTags([...tags, newTag]);
+  const handleAddTag = (tagToAdd: string) => {
+    if (tagToAdd && !tags.includes(tagToAdd)) {
+      setTags([...tags, tagToAdd]);
       setNewTag("");
     }
   };
@@ -96,15 +112,35 @@ export const ProjectForm = ({ project, onSubmit }: ProjectFormProps) => {
       </div>
 
       <div>
-        <Label htmlFor="tags">Tags</Label>
+        <Label>Predefined Tags</Label>
+        <div className="flex flex-wrap gap-2 mt-2">
+          {PREDEFINED_TAGS.map((tag) => (
+            <Button
+              key={tag}
+              type="button"
+              variant="outline"
+              size="sm"
+              onClick={() => handleAddTag(tag)}
+              className={tags.includes(tag) ? "opacity-50" : ""}
+              disabled={tags.includes(tag)}
+            >
+              <Tag className="w-3 h-3 mr-1" />
+              {tag}
+            </Button>
+          ))}
+        </div>
+      </div>
+
+      <div>
+        <Label htmlFor="tags">Custom Tags</Label>
         <div className="flex gap-2">
           <Input
             id="tags"
             value={newTag}
             onChange={(e) => setNewTag(e.target.value)}
-            placeholder="Add a tag"
+            placeholder="Add a custom tag"
           />
-          <Button type="button" onClick={handleAddTag}>
+          <Button type="button" onClick={() => handleAddTag(newTag)}>
             Add
           </Button>
         </div>
@@ -112,7 +148,7 @@ export const ProjectForm = ({ project, onSubmit }: ProjectFormProps) => {
           {tags.map((tag) => (
             <span
               key={tag}
-              className="inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium bg-white/10 text-white"
+              className="inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium bg-accent/10 text-accent"
             >
               <Tag className="w-3 h-3" />
               {tag}
@@ -128,7 +164,7 @@ export const ProjectForm = ({ project, onSubmit }: ProjectFormProps) => {
         </div>
       </div>
 
-      <Button type="submit">
+      <Button type="submit" className="w-full">
         {project ? "Update Project" : "Add Project"}
       </Button>
     </form>
