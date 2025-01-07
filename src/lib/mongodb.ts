@@ -37,7 +37,9 @@ export interface Project {
   title: string;
   description: string;
   imageUrl?: string;
-  link?: string;
+  demoUrl?: string;
+  githubUrl?: string;
+  tags: string[];
 }
 
 export interface Certificate {
