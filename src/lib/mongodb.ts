@@ -20,15 +20,17 @@ export interface Certificate {
   title: string;
   issuer: string;
   date: string;
+  imageUrl?: string;
 }
 
-export interface Experience {
+export interface Education {
   _id?: string;
-  company: string;
-  position: string;
+  institution: string;
+  degree: string;
+  field: string;
   startDate: string;
   endDate?: string;
-  description: string;
+  description?: string;
 }
 
 // Collection names as constants
@@ -36,5 +38,5 @@ export const Collections = {
   SKILLS: 'skills',
   PROJECTS: 'projects',
   CERTIFICATES: 'certificates',
-  EXPERIENCE: 'experience'
+  EDUCATION: 'education'
 } as const;

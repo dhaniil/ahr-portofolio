@@ -1,4 +1,4 @@
-import type { Skill, Project, Certificate, Experience } from './mongodb';
+import type { Skill, Project, Certificate, Education } from './mongodb';
 
 const API_URL = import.meta.env.VITE_API_URL || '/api';
 
@@ -71,19 +71,55 @@ export const addCertificate = async (certificate: Omit<Certificate, '_id'>) => {
   return response.json();
 };
 
-// Experience CRUD
-export const getExperience = async () => {
-  const response = await fetch(`${API_URL}/experience`);
-  if (!response.ok) throw new Error('Failed to fetch experience');
+export const updateCertificate = async (id: string, certificate: Omit<Certificate, '_id'>) => {
+  const response = await fetch(`${API_URL}/certificates/${id}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(certificate),
+  });
+  if (!response.ok) throw new Error('Failed to update certificate');
   return response.json();
 };
 
-export const addExperience = async (experience: Omit<Experience, '_id'>) => {
-  const response = await fetch(`${API_URL}/experience`, {
+export const deleteCertificate = async (id: string) => {
+  const response = await fetch(`${API_URL}/certificates/${id}`, {
+    method: 'DELETE',
+  });
+  if (!response.ok) throw new Error('Failed to delete certificate');
+  return response.json();
+};
+
+// Education CRUD
+export const getEducation = async () => {
+  const response = await fetch(`${API_URL}/education`);
+  if (!response.ok) throw new Error('Failed to fetch education');
+  return response.json();
+};
+
+export const addEducation = async (education: Omit<Education, '_id'>) => {
+  const response = await fetch(`${API_URL}/education`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(experience),
+    body: JSON.stringify(education),
   });
-  if (!response.ok) throw new Error('Failed to add experience');
+  if (!response.ok) throw new Error('Failed to add education');
+  return response.json();
+};
+
+export const updateEducation = async (id: string, education: Omit<Education, '_id'>) => {
+  const response = await fetch(`${API_URL}/education/${id}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(education),
+  });
+  if (!response.ok) throw new Error('Failed to update education');
+  return response.json();
+};
+
+export const deleteEducation = async (id: string) => {
+  const response = await fetch(`${API_URL}/education/${id}`, {
+    method: 'DELETE',
+  });
+  if (!response.ok) throw new Error('Failed to delete education');
   return response.json();
 };
