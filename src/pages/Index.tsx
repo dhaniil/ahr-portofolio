@@ -1,6 +1,8 @@
 import { Hero } from "@/components/Hero";
 import { TabSection } from "@/components/TabSection";
 import { Experience } from "@/components/Experience";
+import { ContactMe } from "@/components/ContactMe";
+import { Footer } from "@/components/Footer";
 
 const Index = () => {
   return (
@@ -8,6 +10,8 @@ const Index = () => {
       <Hero />
       <TabSection />
       <Experience />
+      <ContactMe />
+      <Footer />
     </div>
   );
 };
