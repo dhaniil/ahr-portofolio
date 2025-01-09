@@ -14,6 +14,7 @@ export const CertificateForm = ({ certificate, onSubmit }: CertificateFormProps)
   const [issuer, setIssuer] = useState(certificate?.issuer || "");
   const [date, setDate] = useState(certificate?.date || "");
   const [imageUrl, setImageUrl] = useState(certificate?.imageUrl || "");
+  const [verificationUrl, setVerificationUrl] = useState(certificate?.verificationUrl || "");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -22,6 +23,7 @@ export const CertificateForm = ({ certificate, onSubmit }: CertificateFormProps)
       issuer,
       date,
       imageUrl,
+      verificationUrl,
     });
   };
 
@@ -65,6 +67,16 @@ export const CertificateForm = ({ certificate, onSubmit }: CertificateFormProps)
           type="url"
           value={imageUrl}
           onChange={(e) => setImageUrl(e.target.value)}
+        />
+      </div>
+
+      <div>
+        <Label htmlFor="verificationUrl">Verification URL</Label>
+        <Input
+          id="verificationUrl"
+          type="url"
+          value={verificationUrl}
+          onChange={(e) => setVerificationUrl(e.target.value)}
         />
       </div>
 

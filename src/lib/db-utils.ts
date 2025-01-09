@@ -1,130 +1,123 @@
-import type { Skill, Project, Certificate, Education } from './mongodb';
-
-// Mock data
-const mockProjects: Project[] = [
-  {
-    _id: '1',
-    title: 'Sample Project 1',
-    description: 'A sample project description',
-    technologies: ['React', 'TypeScript'],
-    imageUrl: '/placeholder.svg',
-    githubUrl: 'https://github.com',
-    liveUrl: 'https://example.com'
-  }
-];
-
-const mockCertificates: Certificate[] = [
-  {
-    _id: '1',
-    title: 'Sample Certificate',
-    issuer: 'Sample Institution',
-    date: '2024-01',
-    imageUrl: '/placeholder.svg',
-    verificationUrl: 'https://example.com'
-  }
-];
-
-const mockEducation: Education[] = [
-  {
-    _id: '1',
-    institution: 'Sample University',
-    degree: 'Bachelor of Science',
-    field: 'Computer Science',
-    startDate: '2020-09',
-    endDate: '2024-06',
-    description: 'Sample education description'
-  }
-];
+import { ObjectId } from 'mongodb';
+import clientPromise from './mongodb-client';
+import { Project, Certificate, Education, MONGODB_DB, COLLECTIONS } from './mongodb';
 
 // Projects CRUD
 export const getProjects = async (): Promise<Project[]> => {
-  return Promise.resolve(mockProjects);
+  const client = await clientPromise;
+  const collection = client.db(MONGODB_DB).collection(COLLECTIONS.PROJECTS);
+  const projects = await collection.find({}).toArray();
+  return projects.map(project => ({
+    ...project,
+    _id: project._id.toString()
+  }));
 };
 
 export const addProject = async (project: Omit<Project, '_id'>): Promise<Project> => {
-  const newProject = {
-    _id: Date.now().toString(),
-    ...project
+  const client = await clientPromise;
+  const collection = client.db(MONGODB_DB).collection(COLLECTIONS.PROJECTS);
+  const result = await collection.insertOne(project);
+  return {
+    ...project,
+    _id: result.insertedId.toString()
   };
-  mockProjects.push(newProject);
-  return Promise.resolve(newProject);
 };
 
 export const updateProject = async (id: string, project: Omit<Project, '_id'>): Promise<Project> => {
-  const index = mockProjects.findIndex(p => p._id === id);
-  if (index === -1) throw new Error('Project not found');
-  
-  const updatedProject = { _id: id, ...project };
-  mockProjects[index] = updatedProject;
-  return Promise.resolve(updatedProject);
+  const client = await clientPromise;
+  const collection = client.db(MONGODB_DB).collection(COLLECTIONS.PROJECTS);
+  await collection.updateOne(
+    { _id: new ObjectId(id) },
+    { $set: project }
+  );
+  return {
+    ...project,
+    _id: id
+  };
 };
 
 export const deleteProject = async (id: string): Promise<void> => {
-  const index = mockProjects.findIndex(p => p._id === id);
-  if (index === -1) throw new Error('Project not found');
-  
-  mockProjects.splice(index, 1);
-  return Promise.resolve();
+  const client = await clientPromise;
+  const collection = client.db(MONGODB_DB).collection(COLLECTIONS.PROJECTS);
+  await collection.deleteOne({ _id: new ObjectId(id) });
 };
 
 // Certificates CRUD
 export const getCertificates = async (): Promise<Certificate[]> => {
-  return Promise.resolve(mockCertificates);
+  const client = await clientPromise;
+  const collection = client.db(MONGODB_DB).collection(COLLECTIONS.CERTIFICATES);
+  const certificates = await collection.find({}).toArray();
+  return certificates.map(certificate => ({
+    ...certificate,
+    _id: certificate._id.toString()
+  }));
 };
 
 export const addCertificate = async (certificate: Omit<Certificate, '_id'>): Promise<Certificate> => {
-  const newCertificate = {
-    _id: Date.now().toString(),
-    ...certificate
+  const client = await clientPromise;
+  const collection = client.db(MONGODB_DB).collection(COLLECTIONS.CERTIFICATES);
+  const result = await collection.insertOne(certificate);
+  return {
+    ...certificate,
+    _id: result.insertedId.toString()
   };
-  mockCertificates.push(newCertificate);
-  return Promise.resolve(newCertificate);
 };
 
 export const updateCertificate = async (id: string, certificate: Omit<Certificate, '_id'>): Promise<Certificate> => {
-  const index = mockCertificates.findIndex(c => c._id === id);
-  if (index === -1) throw new Error('Certificate not found');
-  
-  const updatedCertificate = { _id: id, ...certificate };
-  mockCertificates[index] = updatedCertificate;
-  return Promise.resolve(updatedCertificate);
+  const client = await clientPromise;
+  const collection = client.db(MONGODB_DB).collection(COLLECTIONS.CERTIFICATES);
+  await collection.updateOne(
+    { _id: new ObjectId(id) },
+    { $set: certificate }
+  );
+  return {
+    ...certificate,
+    _id: id
+  };
 };
 
 export const deleteCertificate = async (id: string): Promise<void> => {
-  const index = mockCertificates.findIndex(c => c._id === id);
-  if (index === -1) throw new Error('Certificate not found');
-  
-  mockCertificates.splice(index, 1);
-  return Promise.resolve();
+  const client = await clientPromise;
+  const collection = client.db(MONGODB_DB).collection(COLLECTIONS.CERTIFICATES);
+  await collection.deleteOne({ _id: new ObjectId(id) });
 };
 
 // Education CRUD
 export const getEducation = async (): Promise<Education[]> => {
-  return Promise.resolve(mockEducation);
+  const client = await clientPromise;
+  const collection = client.db(MONGODB_DB).collection(COLLECTIONS.EDUCATION);
+  const education = await collection.find({}).toArray();
+  return education.map(edu => ({
+    ...edu,
+    _id: edu._id.toString()
+  }));
 };
 
 export const addEducation = async (education: Omit<Education, '_id'>): Promise<Education> => {
-  const newEducation = {
-    _id: Date.now().toString(),
-    ...education
+  const client = await clientPromise;
+  const collection = client.db(MONGODB_DB).collection(COLLECTIONS.EDUCATION);
+  const result = await collection.insertOne(education);
+  return {
+    ...education,
+    _id: result.insertedId.toString()
   };
-  mockEducation.push(newEducation);
-  return Promise.resolve(newEducation);
 };
 
 export const updateEducation = async (id: string, education: Omit<Education, '_id'>): Promise<Education> => {
-  const index = mockEducation.findIndex(e => e._id === id);
-  if (index === -1) throw new Error('Education not found');
-  
-  const updatedEducation = { _id: id, ...education };
-  mockEducation[index] = updatedEducation;
-  return Promise.resolve(updatedEducation);
+  const client = await clientPromise;
+  const collection = client.db(MONGODB_DB).collection(COLLECTIONS.EDUCATION);
+  await collection.updateOne(
+    { _id: new ObjectId(id) },
+    { $set: education }
+  );
+  return {
+    ...education,
+    _id: id
+  };
 };
 
 export const deleteEducation = async (id: string): Promise<void> => {
-  const index = mockEducation.findIndex(e => e._id === id);
-  if (index === -1) throw new Error('Education not found');
-  
-  mockEducation.splice(index, 1);
-  return Promise.resolve();
+  const client = await clientPromise;
+  const collection = client.db(MONGODB_DB).collection(COLLECTIONS.EDUCATION);
+  await collection.deleteOne({ _id: new ObjectId(id) });
 };

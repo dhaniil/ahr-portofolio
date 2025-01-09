@@ -27,3 +27,10 @@ export interface Education {
   endDate?: string;
   description?: string;
 }
+
+export const MONGODB_DB = process.env.MONGODB_DB || 'portfolio';
+export const COLLECTIONS = {
+  PROJECTS: 'projects',
+  CERTIFICATES: 'certificates',
+  EDUCATION: 'education'
+} as const;

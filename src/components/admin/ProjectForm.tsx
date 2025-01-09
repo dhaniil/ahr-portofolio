@@ -34,7 +34,9 @@ export const ProjectForm = ({ project, onSubmit }: ProjectFormProps) => {
   const [demoUrl, setDemoUrl] = useState(project?.demoUrl || "");
   const [githubUrl, setGithubUrl] = useState(project?.githubUrl || "");
   const [tags, setTags] = useState<string[]>(project?.tags || []);
+  const [technologies, setTechnologies] = useState<string[]>(project?.technologies || []);
   const [newTag, setNewTag] = useState("");
+  const [newTechnology, setNewTechnology] = useState("");
 
   const handleAddTag = (tagToAdd: string) => {
     if (tagToAdd && !tags.includes(tagToAdd)) {
@@ -47,6 +49,17 @@ export const ProjectForm = ({ project, onSubmit }: ProjectFormProps) => {
     setTags(tags.filter((tag) => tag !== tagToRemove));
   };
 
+  const handleAddTechnology = (techToAdd: string) => {
+    if (techToAdd && !technologies.includes(techToAdd)) {
+      setTechnologies([...technologies, techToAdd]);
+      setNewTechnology("");
+    }
+  };
+
+  const handleRemoveTechnology = (techToRemove: string) => {
+    setTechnologies(technologies.filter((tech) => tech !== techToRemove));
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     onSubmit({
@@ -56,6 +69,7 @@ export const ProjectForm = ({ project, onSubmit }: ProjectFormProps) => {
       demoUrl,
       githubUrl,
       tags,
+      technologies,
     });
   };
 
