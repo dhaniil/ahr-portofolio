@@ -10,7 +10,7 @@ export const getProjects = async (): Promise<Project[]> => {
   return projects.map(project => ({
     ...project,
     _id: project._id.toString()
-  }));
+  })) as Project[];
 };
 
 export const addProject = async (project: Omit<Project, '_id'>): Promise<Project> => {
@@ -50,7 +50,7 @@ export const getCertificates = async (): Promise<Certificate[]> => {
   return certificates.map(certificate => ({
     ...certificate,
     _id: certificate._id.toString()
-  }));
+  })) as Certificate[];
 };
 
 export const addCertificate = async (certificate: Omit<Certificate, '_id'>): Promise<Certificate> => {
@@ -90,7 +90,7 @@ export const getEducation = async (): Promise<Education[]> => {
   return education.map(edu => ({
     ...edu,
     _id: edu._id.toString()
-  }));
+  })) as Education[];
 };
 
 export const addEducation = async (education: Omit<Education, '_id'>): Promise<Education> => {
