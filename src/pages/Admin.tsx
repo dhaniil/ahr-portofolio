@@ -9,7 +9,7 @@ import {
   addProject, updateProject, deleteProject, getProjects,
   addCertificate, updateCertificate, deleteCertificate, getCertificates,
   addEducation, updateEducation, deleteEducation, getEducation
-} from "@/lib/db-utils";
+} from "@/lib/api-utils"; // Changed from db-utils to api-utils
 import type { Project, Certificate, Education } from "@/lib/mongodb";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
@@ -23,17 +23,17 @@ const Admin = () => {
   const [editingCertificate, setEditingCertificate] = useState<Certificate | null>(null);
   const [editingEducation, setEditingEducation] = useState<Education | null>(null);
 
-  const { data: projects = [], isLoading: projectsLoading } = useQuery({
+  const { data: projects = [], isLoading: projectsLoading } = useQuery<Project[]>({
     queryKey: ['projects'],
     queryFn: getProjects,
   });
 
-  const { data: certificates = [], isLoading: certificatesLoading } = useQuery({
+  const { data: certificates = [], isLoading: certificatesLoading } = useQuery<Certificate[]>({
     queryKey: ['certificates'],
     queryFn: getCertificates,
   });
 
-  const { data: education = [], isLoading: educationLoading } = useQuery({
+  const { data: education = [], isLoading: educationLoading } = useQuery<Education[]>({
     queryKey: ['education'],
     queryFn: getEducation,
   });
