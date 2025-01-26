@@ -4,7 +4,6 @@ import { Experience } from "@/components/Experience";
 import { ContactMe } from "@/components/ContactMe";
 import { Footer } from "@/components/Footer";
 import { useEffect, useRef } from "react";
-import { SidebarProvider } from "@/components/ui/sidebar";
 import { MainNavigation } from "@/components/MainNavigation";
 
 const Index = () => {
@@ -65,21 +64,19 @@ const Index = () => {
   }, []);
 
   return (
-    <SidebarProvider>
-      <div className="flex min-h-screen w-full">
-        <MainNavigation />
-        <div 
-          ref={sectionsRef}
-          className="flex-1 min-h-screen bg-background text-foreground overflow-y-auto scroll-smooth"
-        >
-          <Hero />
-          <TabSection />
-          <Experience />
-          <ContactMe />
-          <Footer />
-        </div>
+    <div className="relative">
+      <MainNavigation />
+      <div 
+        ref={sectionsRef}
+        className="min-h-screen bg-background text-foreground overflow-y-auto scroll-smooth"
+      >
+        <Hero />
+        <TabSection />
+        <Experience />
+        <ContactMe />
+        <Footer />
       </div>
-    </SidebarProvider>
+    </div>
   );
 };
 
