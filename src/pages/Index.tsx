@@ -4,6 +4,8 @@ import { Experience } from "@/components/Experience";
 import { ContactMe } from "@/components/ContactMe";
 import { Footer } from "@/components/Footer";
 import { useEffect, useRef } from "react";
+import { SidebarProvider } from "@/components/ui/sidebar";
+import { MainNavigation } from "@/components/MainNavigation";
 
 const Index = () => {
   const sectionsRef = useRef<HTMLDivElement>(null);
@@ -48,11 +50,10 @@ const Index = () => {
         });
       }
       
-      // Reset isScrolling after animation
       clearTimeout(timeoutId);
       timeoutId = setTimeout(() => {
         isScrolling = false;
-      }, 1000); // Adjust this value to match your scroll animation duration
+      }, 1000);
     };
     
     window.addEventListener('wheel', handleScroll, { passive: false });
@@ -64,16 +65,21 @@ const Index = () => {
   }, []);
 
   return (
-    <div 
-      ref={sectionsRef}
-      className="min-h-screen bg-background text-foreground overflow-y-auto scroll-smooth"
-    >
-      <Hero />
-      <TabSection />
-      <Experience />
-      <ContactMe />
-      <Footer />
-    </div>
+    <SidebarProvider>
+      <div className="flex min-h-screen w-full">
+        <MainNavigation />
+        <div 
+          ref={sectionsRef}
+          className="flex-1 min-h-screen bg-background text-foreground overflow-y-auto scroll-smooth"
+        >
+          <Hero />
+          <TabSection />
+          <Experience />
+          <ContactMe />
+          <Footer />
+        </div>
+      </div>
+    </SidebarProvider>
   );
 };
 
