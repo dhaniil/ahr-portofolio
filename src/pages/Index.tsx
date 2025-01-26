@@ -26,17 +26,18 @@ const Index = () => {
       const sections = container.querySelectorAll('section');
       const currentScroll = window.scrollY;
       
-      let targetSection: Element | null = null;
+      let targetSection: HTMLElement | null = null;
       
       sections.forEach((section) => {
-        const sectionTop = section.offsetTop;
+        const sectionElement = section as HTMLElement;
+        const sectionTop = sectionElement.offsetTop;
         if (direction > 0 && sectionTop > currentScroll) {
           if (!targetSection || sectionTop < targetSection.offsetTop) {
-            targetSection = section;
+            targetSection = sectionElement;
           }
         } else if (direction < 0 && sectionTop < currentScroll) {
           if (!targetSection || sectionTop > targetSection.offsetTop) {
-            targetSection = section;
+            targetSection = sectionElement;
           }
         }
       });
